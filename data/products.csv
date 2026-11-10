@@ -1,7 +1,7 @@
-sku,name,category,stock,reorder_level,price
-P1,Basmati rice,Grocery,40,10,120.00
-P2,Toor dal,Grocery,6,10,150.50
-P3,Notebook,Stationery,200,50,45.00
-P4,Gel pen,Stationery,30,40,10.00
-P5,Steel tumbler,Kitchen,12,5,85.00
-P6,Pressure cooker,Kitchen,2,3,1450.00
+id,name,category,price,stock,reorder_level
+P1,Basmati rice,Grocery,120.00,40,10
+P2,Toor dal,Grocery,150.50,6,10
+P3,Notebook,Stationery,45.00,200,50
+P4,Gel pen,Stationery,10.00,30,40
+P5,Steel tumbler,Kitchen,85.00,12,5
+P6,Pressure cooker,Kitchen,1450.00,2,3

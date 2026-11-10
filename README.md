@@ -15,7 +15,7 @@ java -cp target/classes inventory.Main data
 Output with the sample data:
 
 ```
-Skipped sales.csv line 9: For input string: "abc"
+Warning: skipping sales.csv line 9: For input string: "abc"
 
 Low stock:
   Pressure cooker   2 left (reorder at 3)
@@ -35,18 +35,18 @@ Revenue by category:
 
 ## Input files
 
-- `data/products.csv`: `sku,name,category,stock,reorder_level,price`
-- `data/sales.csv`: `date,sku,quantity`
+- `data/products.csv`: `id,name,category,price,stock,reorder_level`
+- `data/sales.csv`: `date,product_id,quantity`
 
-Lines with the wrong number of columns or bad numbers are skipped and listed. Sales for a
-SKU that is not in the products file are ignored, because they have no price.
+Lines with the wrong number of columns or bad numbers are skipped with a warning. Sales for a
+product id that is not in the products file are ignored, because they have no price.
 
 ## Design
 
 - `Product` and `Sale` are records: plain data that never changes.
 - `CsvReader.read` is generic (`<T> List<T> read(Path, Function<String[], T>)`), so one method
   reads both files.
-- `Analytics` keeps products in a `Map` by SKU for fast lookup, and uses streams with
+- `Analytics` keeps products in a `Map` by id for fast lookup, and uses streams with
   `groupingBy`, `summingInt` and `reducing` for the reports. Money is `BigDecimal`. Results
   go into a `TreeMap`, so they print in a stable order.
 

@@ -11,9 +11,9 @@ import org.junit.jupiter.api.Test;
 
 class AnalyticsTest {
     static final List<Product> PRODUCTS = List.of(
-            new Product("A", "Rice", "Grocery", 5, 10, new BigDecimal("100.00")),
-            new Product("B", "Pen", "Stationery", 50, 10, new BigDecimal("10.50")),
-            new Product("C", "Book", "Stationery", 10, 10, new BigDecimal("40.00")));
+            new Product("A", "Rice", "Grocery", new BigDecimal("100.00"), 5, 10),
+            new Product("B", "Pen", "Stationery", new BigDecimal("10.50"), 50, 10),
+            new Product("C", "Book", "Stationery", new BigDecimal("40.00"), 10, 10));
     static final List<Sale> SALES = List.of(
             new Sale(LocalDate.of(2026, 1, 1), "A", 2),
             new Sale(LocalDate.of(2026, 1, 2), "B", 10),
@@ -37,6 +37,12 @@ class AnalyticsTest {
     void revenueByCategoryIgnoresUnknownSkus() {
         assertEquals(Map.of("Grocery", new BigDecimal("200.00"), "Stationery", new BigDecimal("187.00")),
                 a.revenueByCategory());
+    }
+
+    @Test
+    void readerParsesProductColumnsInOrder() throws Exception {
+        List<Product> products = new CsvReader().read(Path.of("data/products.csv"), CsvReader::product);
+        assertEquals(new Product("P1", "Basmati rice", "Grocery", new BigDecimal("120.00"), 40, 10), products.get(0));
     }
 
     @Test

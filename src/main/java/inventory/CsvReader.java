@@ -28,6 +28,7 @@ public class CsvReader {
                 rows.add(parser.apply(line.split(",", -1)));
             } catch (RuntimeException e) {
                 problems.add(file.getFileName() + " line " + (i + 1) + ": " + e.getMessage());
+                System.err.println("Warning: skipping " + file.getFileName() + " line " + (i + 1) + ": " + e.getMessage());
             }
         }
         return rows;
@@ -35,11 +36,13 @@ public class CsvReader {
 
     public static Product product(String[] f) {
         if (f.length != 6) throw new IllegalArgumentException("expected 6 columns");
-        return new Product(f[0].trim(), f[1].trim(), f[2].trim(), Integer.parseInt(f[3].trim()),
-                Integer.parseInt(f[4].trim()), new BigDecimal(f[5].trim()));
+        // id,name,category,price,stock,reorder_level
+        return new Product(f[0].trim(), f[1].trim(), f[2].trim(), new BigDecimal(f[3].trim()),
+                Integer.parseInt(f[4].trim()), Integer.parseInt(f[5].trim()));
     }
 
     public static Sale sale(String[] f) {
+        // date,product_id,quantity
         if (f.length != 3) throw new IllegalArgumentException("expected 3 columns");
         int qty = Integer.parseInt(f[2].trim());
         if (qty <= 0) throw new IllegalArgumentException("quantity must be positive");

@@ -10,7 +10,7 @@ public class Main {
         CsvReader reader = new CsvReader();
         List<Product> products = reader.read(dir.resolve("products.csv"), CsvReader::product);
         List<Sale> sales = reader.read(dir.resolve("sales.csv"), CsvReader::sale);
-        reader.problems().forEach(p -> System.out.println("Skipped " + p));
+        // bad lines were already reported as warnings by CsvReader
 
         Analytics a = new Analytics(products, sales);
         System.out.println("\nLow stock:");

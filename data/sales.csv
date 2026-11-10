@@ -1,4 +1,4 @@
-date,sku,quantity
+date,product_id,quantity
 2026-03-01,P1,5
 2026-03-01,P3,20
 2026-03-02,P4,35
